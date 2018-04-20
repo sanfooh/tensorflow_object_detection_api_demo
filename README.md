@@ -20,6 +20,7 @@ protoc object_detection/protos/*.proto --python_out=.
 export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 python object_detection/builders/model_builder_test.py
 
+cd /output
 git clone https://github.com/sanfooh/tensorflow_object_detection_api_demo.git
 
 cd /output/tensorflow_object_detection_api_demo

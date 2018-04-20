@@ -42,7 +42,7 @@ from object_detection.utils import label_map_util
 flags = tf.app.flags
 flags.DEFINE_string('data_dir', '', 'Root directory to raw pet dataset.')
 flags.DEFINE_string('output_dir', '', 'Path to directory to output TFRecords.')
-flags.DEFINE_string('label_map_path', 'data/pet_label_map.pbtxt',
+flags.DEFINE_string('label_map_path', 'pet_label_map.pbtxt',
                     'Path to label map proto')
 FLAGS = flags.FLAGS
 
@@ -57,7 +57,7 @@ def get_class_name_from_filename(file_name):
   Returns:
     A string of the class name.
   """
-  match = re.match(r'([A-Za-z_]+)(_[0-9]+\.jpg)', file_name, re.I)
+  match = re.match(r'([A-Za-z_]+)([0-9]+\.jpg)', file_name, re.I)
   return match.groups()[0]
 
 
@@ -164,7 +164,7 @@ def create_tf_record(output_filename,
   for idx, example in enumerate(examples):
     if idx % 100 == 0:
       logging.info('On image %d of %d', idx, len(examples))
-    path = os.path.join(annotations_dir, 'xmls', example + '.xml')
+    path = os.path.join(annotations_dir, '', example + '.xml')
 
     if not os.path.exists(path):
       logging.warning('Could not find %s, ignoring example.', path)
