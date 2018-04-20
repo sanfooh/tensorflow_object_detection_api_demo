@@ -31,8 +31,9 @@ tar -xzvf ssd_mobilenet_v1_coco_2017_11_17.tar.gz
 
 python create_pet_tf_record.py
 
+mkdir mytrain
 
-python train.py --train_dir=ssd_mobilenet_v1_coco_2017_11_17/ --pipeline_config_path=net.config --logtostderr
+python /output/models/research/object_detection/train.py --train_dir=mytrain/ --pipeline_config_path=net.config --logtostderr
 
 
 ```
