@@ -45,4 +45,10 @@ python /output/models/research/object_detection/export_inference_graph.py \
 --pipeline_config_path tensorflow_object_detection_api_demo/net.config \
 --trained_checkpoint_prefix mytrain/model.ckpt-4701 \
 --output_directory mymodel
+
+
+引用  
+https://www.jianshu.com/p/4ec080f709d8  
+https://github.com/priya-dwivedi/Deep-Learning/tree/master/tensorflow_toy_detector  
+
 ```
