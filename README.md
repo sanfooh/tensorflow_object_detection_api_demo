@@ -1,9 +1,7 @@
 # tensorflow_object_detection_api_demo
 ```
 
-
-pip install --upgrade tensorflow
-
+cd /output/
 
 wget  https://github.com/tensorflow/models/archive/dcfe009a024854207c9067d785c105f5ebf5a01b.zip
 unzip dcfe009a024854207c9067d785c105f5ebf5a01b.zip
@@ -27,6 +25,7 @@ cd /output/tensorflow_object_detection_api_demo
 
 wget  http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2017_11_17.tar.gz
 tar -xzvf ssd_mobilenet_v1_coco_2017_11_17.tar.gz
+rm -r ssd_mobilenet_v1_coco_2017_11_17.tar.gz
 
 
 python create_pet_tf_record.py
