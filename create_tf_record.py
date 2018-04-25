@@ -39,7 +39,7 @@ def get_examples(img_path):
     encoded_jpg_io = io.BytesIO(encoded_jpg)
     image = PIL.Image.open(encoded_jpg_io)
     if image.format != 'JPEG':
-		return False,None
+        return False,None
     key = hashlib.sha256(encoded_jpg).hexdigest()    
     examples=[]
     for line in open(label_path):  
