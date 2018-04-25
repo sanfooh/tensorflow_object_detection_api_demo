@@ -33,7 +33,7 @@ tar -xzvf ssd_mobilenet_v1_coco_2017_11_17.tar.gz
 rm -r ssd_mobilenet_v1_coco_2017_11_17.tar.gz
 
 #生成tfrecord数据集
-python create_pet_tf_record.py
+python create_tf_record.py 
 mkdir mytrain
 
 #开始训练
