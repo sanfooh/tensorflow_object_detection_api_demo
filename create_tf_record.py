@@ -39,6 +39,7 @@ def get_examples(img_path):
     encoded_jpg_io = io.BytesIO(encoded_jpg)
     image = PIL.Image.open(encoded_jpg_io)
     if image.format != 'JPEG':
+        print("file format error "+img_path)
         return False,None
     key = hashlib.sha256(encoded_jpg).hexdigest()    
     examples=[]
@@ -64,9 +65,7 @@ def get_examples(img_path):
         ymax.append(float(data[7]))
         classes.append(int(data[8]))
         classes_text.append(data[9].encode('utf8'))
-        difficult_obj.append(0)
-        truncated.append(0)
-        poses.append('Unspecified'.encode('utf8'))
+
         
         print(file_name)
         
@@ -76,7 +75,7 @@ def get_examples(img_path):
           'image/filename': dataset_util.bytes_feature(file_name.encode('utf8')),
           'image/source_id': dataset_util.bytes_feature(file_name.encode('utf8')),
           'image/key/sha256': dataset_util.bytes_feature(key.encode('utf8')),
-          'image/encoded': dataset_util.bytes_feature(image_format.encode('utf8')),
+          'image/encoded': dataset_util.bytes_feature(encoded_jpg),
           'image/format': dataset_util.bytes_feature('jpeg'.encode('utf8')),
           'image/object/bbox/xmin': dataset_util.float_list_feature(xmin),
           'image/object/bbox/xmax': dataset_util.float_list_feature(xmax),
@@ -84,12 +83,9 @@ def get_examples(img_path):
           'image/object/bbox/ymax': dataset_util.float_list_feature(ymax),
           'image/object/class/text': dataset_util.bytes_list_feature(classes_text),
           'image/object/class/label': dataset_util.int64_list_feature(classes),
-          'image/object/difficult': dataset_util.int64_list_feature(difficult_obj),
-          'image/object/truncated': dataset_util.int64_list_feature(truncated),
-          'image/object/view': dataset_util.bytes_list_feature(poses),
         }))
         examples.append(example)
-        print(example)
+
     return True,examples    
 
 def create_tf_record(examples_list,output_filename):
