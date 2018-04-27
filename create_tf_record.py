@@ -36,6 +36,7 @@ def get_examples(img_path):
     
     with tf.gfile.GFile(img_path, 'rb') as fid:
         encoded_jpg = fid.read()
+        print(len(encoded_jpg))
     encoded_jpg_io = io.BytesIO(encoded_jpg)
     image = PIL.Image.open(encoded_jpg_io)
     if image.format != 'JPEG':
@@ -60,8 +61,8 @@ def get_examples(img_path):
         file_name=data[2]
         image_format=data[3]
         xmin.append(float(data[4]))
-        ymin.append(float(data[5]))
-        xmax.append(float(data[6]))
+        xmax.append(float(data[5]))
+        ymin.append(float(data[6]))
         ymax.append(float(data[7]))
         classes.append(int(data[8]))
         classes_text.append(data[9].encode('utf8'))
