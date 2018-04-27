@@ -1,9 +1,10 @@
 # tensorflow_object_detection_api_demo
 ```
-
+#在根目录下创建一个output目录
+mkdir /output
 cd /output/
 
-#下载旧版本的tensorflow model,最新版本的api存在问题
+#下载旧版本的tensorflow model（object api 包含在model里）,最新版本的api存在问题（当前2018.4.20）
 wget  https://github.com/tensorflow/models/archive/dcfe009a024854207c9067d785c105f5ebf5a01b.zip
 unzip dcfe009a024854207c9067d785c105f5ebf5a01b.zip 
 mv models-dcfe009a024854207c9067d785c105f5ebf5a01b models
@@ -34,9 +35,12 @@ rm -r ssd_mobilenet_v1_coco_2017_11_17.tar.gz
 
 #生成tfrecord数据集
 python create_tf_record.py 
-mkdir mytrain
+
+#可使用check_tfrecord.ipynb验证一下tfrecord是否有问题
+
 
 #开始训练
+mkdir mytrain
 python /output/models/research/object_detection/train.py --train_dir=mytrain/ --pipeline_config_path=net.config --logtostderr
 
 #生成发布模型，注意要根据mytrain文件夹下实际情况，修改下面的“4701”
@@ -45,6 +49,8 @@ python /output/models/research/object_detection/export_inference_graph.py \
 --pipeline_config_path tensorflow_object_detection_api_demo/net.config \
 --trained_checkpoint_prefix mytrain/model.ckpt-4701 \
 --output_directory mymodel
+
+#使用inference.ipynb来推理
 
 
 引用  
