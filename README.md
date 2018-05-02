@@ -46,9 +46,9 @@ python /output/models/research/object_detection/train.py --train_dir=mytrain/ --
 #生成发布模型，注意要根据mytrain文件夹下实际情况，修改下面的“4701”
 python /output/models/research/object_detection/export_inference_graph.py \
 --input_type image_tensor \
---pipeline_config_path tensorflow_object_detection_api_demo/net.config \
---trained_checkpoint_prefix mytrain/model.ckpt-4701 \
---output_directory mymodel
+--pipeline_config_path /output/tensorflow_object_detection_api_demo/net.config \
+--trained_checkpoint_prefix /output/tensorflow_object_detection_api_demo/mytrain/model.ckpt-35187 \
+--output_directory /output/tensorflow_object_detection_api_demo/mymodel
 
 #使用inference.ipynb来推理
 
