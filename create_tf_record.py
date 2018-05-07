@@ -1,29 +1,14 @@
 import numpy as np
 import os
-import six.moves.urllib as urllib
-import sys
-import tarfile
 import tensorflow as tf
-import zipfile
-
-from collections import defaultdict
-from io import StringIO
-from matplotlib import pyplot as plt
-from PIL import Image
-
-sys.path.append("/output/models/research/")
-
-import hashlib
 import io
 import logging
-import os
 import random
-import re
-
-from lxml import etree
+import sys
 import PIL.Image
-import tensorflow as tf
+import hashlib
 
+sys.path.append("/output/models/research/")
 from object_detection.utils import dataset_util
 from object_detection.utils import label_map_util
 
@@ -36,7 +21,6 @@ def get_examples(img_path):
     
     with tf.gfile.GFile(img_path, 'rb') as fid:
         encoded_jpg = fid.read()
-        print(len(encoded_jpg))
     encoded_jpg_io = io.BytesIO(encoded_jpg)
     image = PIL.Image.open(encoded_jpg_io)
     if image.format != 'JPEG':
@@ -52,9 +36,7 @@ def get_examples(img_path):
         ymax = []
         classes = []
         classes_text = []
-        difficult_obj=[]
-        truncated = []
-        poses = []
+
         
         width=data[0]
         height=data[1]
@@ -67,9 +49,6 @@ def get_examples(img_path):
         classes.append(int(data[8]))
         classes_text.append(data[9].encode('utf8'))
 
-        
-        print(file_name)
-        
         example = tf.train.Example(features=tf.train.Features(feature={
             'image/height': dataset_util.int64_feature(int(height)),
           'image/width': dataset_util.int64_feature(int(width)),
@@ -99,7 +78,7 @@ def create_tf_record(examples_list,output_filename):
     writer.close()   
 
 
-def main(image_dir='./image/',tfrecord_dir='./',example_percent=0.7):
+def main(image_dir='./image/',tfrecord_dir='./',train_percent=0.9):
     images=[]
     for (root,dirs,files) in os.walk(image_dir) :
         for item in files:
@@ -109,17 +88,16 @@ def main(image_dir='./image/',tfrecord_dir='./',example_percent=0.7):
     random.seed(42)
     random.shuffle(images)
     num_examples = len(images)
-    num_train = int(example_percent* num_examples)
+    num_train = int(train_percent* num_examples)
     train_examples = images[:num_train]
     val_examples = images[num_train:]
-    logging.info('%d training and %d validation examples.',len(train_examples), len(val_examples))
     
     train_output_path = os.path.join(tfrecord_dir, 'train.record')
     val_output_path = os.path.join(tfrecord_dir, 'val.record')
     
     create_tf_record(train_examples,train_output_path)
     create_tf_record(val_examples,val_output_path)
-    logging.info('%d training and %d validation examples.')
+    print('complete task!\n crate %d training at %s,\n and %d validation examples at %s.'%(len(train_examples),train_output_path, len(val_examples),val_output_path))
     
     
 main()
