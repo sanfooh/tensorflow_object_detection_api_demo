@@ -52,9 +52,16 @@ python /output/models/research/object_detection/export_inference_graph.py \
 
 #使用inference.ipynb来推理
 
+#利用Flask来发布模型
+pip install flask
+pip install flask_wtf
+#启动服务
+python /output/tensorflow_object_detection_api_demo/web/app.py
+#用浏览器打开 http://xxxx:8000
 
 引用  
 https://www.jianshu.com/p/4ec080f709d8  
 https://github.com/priya-dwivedi/Deep-Learning/tree/master/tensorflow_toy_detector  
+https://github.com/itamaro/tensorflow-object-detection-app
 
 ```
