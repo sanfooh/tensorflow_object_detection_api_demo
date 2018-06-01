@@ -16,6 +16,8 @@ pip install pillow
 pip install lxml
 pip install jupyter
 pip install matplotlib
+pip install opencv-python
+pip install pycocotools
 
 #安装object detection api 并验证
 cd /output/models/research/
@@ -42,6 +44,24 @@ python create_tf_record.py
 #开始训练
 mkdir mytrain
 python /output/models/research/object_detection/train.py --train_dir=mytrain/ --pipeline_config_path=net.config --logtostderr
+
+
+#可视化训练结果
+tensorboard --logdir =mytrain/
+
+
+#评估一下
+mkdir eval
+python /output/models/research/object_detection/eval.py \
+    --logtostderr \
+    --pipeline_config_path=net.config \
+    --checkpoint_dir=mytrain/ \
+    --eval_dir=eval/
+	
+＃显示评估结果
+tensorboard --logdir = eval/
+
+
 
 #生成发布模型，注意要根据mytrain文件夹下实际情况，修改下面的“4701”
 python /output/models/research/object_detection/export_inference_graph.py \
