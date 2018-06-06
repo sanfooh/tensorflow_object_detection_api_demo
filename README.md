@@ -50,7 +50,7 @@ python /output/models/research/object_detection/train.py --train_dir=mytrain/ --
 tensorboard --logdir =mytrain/
 
 
-#评估一下
+#评估一下  详情可参照https://blog.csdn.net/wulala789/article/details/80588424
 mkdir eval
 python /output/models/research/object_detection/eval.py \
     --logtostderr \
