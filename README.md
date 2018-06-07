@@ -85,3 +85,5 @@ https://github.com/priya-dwivedi/Deep-Learning/tree/master/tensorflow_toy_detect
 https://github.com/itamaro/tensorflow-object-detection-app
 
 ```
+ ## 相关教学视频
+ [讲解视频](https://edu.csdn.net/course/detail/8274)
